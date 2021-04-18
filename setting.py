@@ -1,0 +1,1 @@
+VIDEOCAPTURE = 0
