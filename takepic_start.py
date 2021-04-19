@@ -28,6 +28,7 @@ if __name__ == '__main__':
                 img_frame = ImageTk.PhotoImage(Image.fromarray(video_frame))
                 image_canvas.create_image(0, 0, anchor='nw', image=img_frame)
                 image_canvas.img = img_frame
+                image_canvas.after(30, video_button)
             cap.release()
         video_button()
 

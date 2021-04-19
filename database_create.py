@@ -4,7 +4,7 @@ import threading
 import tkinter as tk
 
 frame = 0
-now = 1
+now = 0
 
 
 def start():

@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
         cv2.imshow("opencv", frame)
 
-        frame2 = back_handle.handle('image/background.jpg', frame[80:400, 200:440])
+        frame2 = back_handle.handle(frame[80:400, 200:440])
 
         # cv2.imshow("opencv", frame2)
 
