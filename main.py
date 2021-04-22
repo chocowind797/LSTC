@@ -2,7 +2,8 @@ import cv2
 import setting
 import back_handle
 
-if __name__ == '__main__':
+
+def run():
     cap = cv2.VideoCapture(setting.VIDEOCAPTURE)
 
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
@@ -14,7 +15,7 @@ if __name__ == '__main__':
 
         cv2.imshow("opencv", frame)
 
-        frame2 = back_handle.handle(frame[80:400, 200:440])
+        frame2 = back_handle.handle(frame)
 
         # cv2.imshow("opencv", frame2)
 

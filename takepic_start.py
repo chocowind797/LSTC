@@ -1,5 +1,6 @@
 import tkinter as tk
 import cv2
+import main
 import setting
 import threading
 import database_create
@@ -43,7 +44,7 @@ if __name__ == '__main__':
 
     menu.add_command(label='擷取', command=lambda: threading.Thread(target=image).start())
     menu.add_command(label='完成', command=lambda: cv2.imwrite('image/background.jpg', frame))
-    menu.add_command(label='開始')
+    menu.add_command(label='開始', command=lambda: main.run())
     menu.add_command(label='資料庫創建', command=lambda: database_create.create())
 
     win.mainloop()

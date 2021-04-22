@@ -6,6 +6,7 @@ import cv2
 
 def handle(fg):
     bg = cv2.imread(setting.BG)[80:400, 200:440]
+    fg = fg[80:400, 200:440]
     # fg = cv2.imread('image/foreground.jpg')
 
     # 灰度化处理
@@ -26,9 +27,9 @@ def handle(fg):
 
     # perform a series of erosions and dilations to remove noise
     # erode ,dilate 降噪处理
-    thresh = cv2.erode(thresh, None, iterations=2)
-    thresh = cv2.dilate(thresh, None, iterations=2)
-    # thresh = cv2.erode(thresh, None, iterations=3)
+    # thresh = cv2.erode(thresh, None, iterations=1)
+    thresh = cv2.dilate(thresh, None, iterations=3)
+    thresh = cv2.erode(thresh, None, iterations=1)
     cv2.imshow("thresh2", thresh)
 
     # find contours in the thresholded difference map and then initialize
@@ -57,9 +58,9 @@ def handle(fg):
             maxX = max(maxX, x + w - 1)
             maxY = max(maxY, y + h - 1)
 
-            # draw a rectangle surrounding the region of motion
-            # 绘制长方形
-            cv2.rectangle(fg, (minX, minY), (maxX, maxY), (0, 255, 0), 2)
+    # draw a rectangle surrounding the region of motion
+    # 绘制长方形
+    cv2.rectangle(fg, (minX, minY), (maxX, maxY), (0, 255, 0), 2)
 
     # show the output image
     # 输出图形
