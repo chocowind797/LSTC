@@ -1,11 +1,10 @@
 import numpy as np
-import setting
 import imutils
 import cv2
 
 
-def handle(fg):
-    bg = cv2.imread(setting.BG)[80:400, 200:440]
+def handle(fg, bg):
+    bg = cv2.imread(bg)[80:400, 200:440]
     fg = fg[80:400, 200:440]
     # fg = cv2.imread('image/foreground.jpg')
 
@@ -20,8 +19,7 @@ def handle(fg):
 
     # threshold the image to find regions of the subtracted image with
     # larger pixel differences
-    thresh = cv2.threshold(sub, 0, 255,
-                           cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    thresh = cv2.threshold(sub, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 
     cv2.imshow("thresh", thresh)
 

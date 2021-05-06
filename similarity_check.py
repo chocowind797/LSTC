@@ -220,4 +220,7 @@ def runAllImageSimilaryFun(para1, para2):
 if __name__ == "__main__":
     p1 = "https://ww3.sinaimg.cn/bmiddle/007INInDly1g336j2zziwj30su0g848w.jpg"
     p2 = "https://ww2.sinaimg.cn/bmiddle/007INInDly1g336j10d32j30vd0hnam6.jpg"
+    # p2 = 'https://ww3.sinaimg.cn/bmiddle/007INInDly1g336j2zziwj30su0g848w.jpg'
+
     runAllImageSimilaryFun(p1, p2)
+
