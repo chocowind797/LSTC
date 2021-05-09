@@ -1,3 +1,4 @@
+import threading
 import tkinter as tk
 import main
 import setting
@@ -16,6 +17,11 @@ def button_set_click():
 
     if setting.VIDEOCAPTURE == choice.get() and setting.ACCURACY == int(accuracy.get()) / 100.0:
         messagebox.showinfo(title='提示', message='設定成功')
+
+
+def button_start_click():
+    threading.Thread(target=main.run).start()
+    win.destroy()
 
 
 if __name__ == '__main__':
@@ -63,7 +69,7 @@ if __name__ == '__main__':
     frame_set.pack(side=tk.BOTTOM, ipady=20)
 
     button_set = tk.Button(frame_set, text='設定', command=button_set_click, font=('Arial', 20))
-    button_start = tk.Button(frame_set, text='開始', command=main.run, font=('Arial', 20))
+    button_start = tk.Button(frame_set, text='開始', command=button_start_click, font=('Arial', 20))
 
     button_set.pack(side=tk.LEFT, padx=30)
     button_start.pack(side=tk.RIGHT, padx=30)

@@ -21,14 +21,14 @@ def handle(fg, bg):
     # larger pixel differences
     thresh = cv2.threshold(sub, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 
-    cv2.imshow("thresh", thresh)
+    # cv2.imshow("thresh", thresh)
 
     # perform a series of erosions and dilations to remove noise
     # erode ,dilate 降噪处理
+    thresh = cv2.erode(thresh, None, iterations=4)
+    thresh = cv2.dilate(thresh, None, iterations=6)
     # thresh = cv2.erode(thresh, None, iterations=1)
-    thresh = cv2.dilate(thresh, None, iterations=3)
-    thresh = cv2.erode(thresh, None, iterations=1)
-    cv2.imshow("thresh2", thresh)
+    # cv2.imshow("thresh2", thresh)
 
     # find contours in the thresholded difference map and then initialize
     # 发现边界
@@ -36,10 +36,10 @@ def handle(fg, bg):
     cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
                             cv2.CHAIN_APPROX_SIMPLE)
     cnts = imutils.grab_contours(cnts)
-
+    #
     # 给边界初始值
-    (minX, minY) = (np.inf, np.inf)
-    (maxX, maxY) = (-np.inf, -np.inf)
+    minX, minY = np.inf, np.inf
+    maxX, maxY = -np.inf, -np.inf
 
     # loop over the contours
     # 循环计算边界
@@ -48,7 +48,7 @@ def handle(fg, bg):
         (x, y, w, h) = cv2.boundingRect(c)
 
         # reduce noise by enforcing requirements on the bounding box size
-        # 如果边界值，w 或 w 小于20 就认为是噪音
+        # 如果边界值，w 或 h 小于20 就认为是噪音
         if w > 20 and h > 20:
             # update our bookkeeping variables
             minX = min(minX, x)
@@ -56,12 +56,13 @@ def handle(fg, bg):
             maxX = max(maxX, x + w - 1)
             maxY = max(maxY, y + h - 1)
 
-    # draw a rectangle surrounding the region of motion
-    # 绘制长方形
-    cv2.rectangle(fg, (minX, minY), (maxX, maxY), (0, 255, 0), 2)
+            # draw a rectangle surrounding the region of motion
+            # 绘制长方形
+            # cv2.rectangle(thresh, (minX, minY), (maxX, maxY), (255, 0, 0), 2)
+            return thresh[minY:maxY, minX:maxX]
 
     # show the output image
     # 输出图形
-    cv2.imshow("Output", fg)
+    # cv2.imshow("Output", thresh)
     # cv2.waitKey(0)
-    return thresh
+    # return thresh

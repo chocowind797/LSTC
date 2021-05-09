@@ -1,6 +1,16 @@
 import cv2
 import setting
 import back_handle
+import similarity_check
+
+
+def check(frame):
+    i = 0
+    for i in range(1, 11):
+        num = similarity_check.runAllImageSimilaryFun(frame, "database/%d.jpg" % i)
+        if num:
+            return i
+    return 0
 
 
 def run():
@@ -15,9 +25,16 @@ def run():
 
         cv2.imshow("opencv", frame)
 
-        frame2 = back_handle.handle(frame)
+        frame2 = back_handle.handle(frame, setting.BG_RAW)
 
-        # cv2.imshow("opencv", frame2)
+        cv2.imshow("opencv", frame)
+
+        if frame2 is not None:
+            num = check(frame2)
+            cv2.imshow("handle", frame2)
+            if num != 0:
+                break
+            print(num)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
